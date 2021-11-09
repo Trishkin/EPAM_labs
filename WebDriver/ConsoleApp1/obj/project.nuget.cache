@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "guc3rr2zOHCD0hWtLvn4JYvUIKzjxC/6FGu+qcyzkHTRy324AA8RW8sTPQotbGUDO5/4ZCA/bZHTVUH6hCGe9A==",
+  "success": true,
+  "projectFilePath": "D:\\EPAM LABS\\WebDriver\\ConsoleApp1\\ConsoleApp1.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Asus\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.13\\microsoft.netcore.app.host.win-x64.3.1.13.nupkg.sha512"
+  ],
+  "logs": []
+}
