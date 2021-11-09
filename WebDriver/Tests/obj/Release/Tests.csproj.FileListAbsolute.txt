@@ -1,0 +1,17 @@
+D:\EPAM LABS\WebDriver\Tests\bin\Release\NUnit3.TestAdapter.dll
+D:\EPAM LABS\WebDriver\Tests\bin\Release\NUnit3.TestAdapter.pdb
+D:\EPAM LABS\WebDriver\Tests\bin\Release\nunit.engine.dll
+D:\EPAM LABS\WebDriver\Tests\bin\Release\nunit.engine.api.dll
+D:\EPAM LABS\WebDriver\Tests\bin\Release\nunit.engine.core.dll
+D:\EPAM LABS\WebDriver\Tests\bin\Release\testcentric.engine.metadata.dll
+D:\EPAM LABS\WebDriver\Tests\bin\Release\Tests.dll
+D:\EPAM LABS\WebDriver\Tests\bin\Release\Tests.pdb
+D:\EPAM LABS\WebDriver\Tests\bin\Release\nunit.framework.dll
+D:\EPAM LABS\WebDriver\Tests\bin\Release\WebDriver.dll
+D:\EPAM LABS\WebDriver\Tests\bin\Release\WebDriver.Support.dll
+D:\EPAM LABS\WebDriver\Tests\bin\Release\nunit.framework.xml
+D:\EPAM LABS\WebDriver\Tests\obj\Release\Tests.csprojAssemblyReference.cache
+D:\EPAM LABS\WebDriver\Tests\obj\Release\Tests.csproj.CoreCompileInputs.cache
+D:\EPAM LABS\WebDriver\Tests\obj\Release\Tests.csproj.CopyComplete
+D:\EPAM LABS\WebDriver\Tests\obj\Release\Tests.dll
+D:\EPAM LABS\WebDriver\Tests\obj\Release\Tests.pdb
