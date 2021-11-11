@@ -1,0 +1,11 @@
+# Add any directories, files, or patterns you don't want to be tracked by version control
+/build
+/packages
+//ConsoleApp1/vs
+/ConsoleApp1/obj
+/ConsoleApp1/bin
+/Tests/obj
+/Tests/bin
+*.suo
+/ConsoleApp1.v12.suo
+/Tests.v12.suo
