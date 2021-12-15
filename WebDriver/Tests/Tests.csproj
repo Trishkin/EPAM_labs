@@ -59,6 +59,7 @@
     <Compile Include="GoogleCloudCalculator.cs" />
     <Compile Include="Pages\AlpariPage\AlpariChromeDriver.cs" />
     <Compile Include="Pages\CalculatorPage\CalculatorChromeDriver.cs" />
+    <Compile Include="Pages\Page.cs" />
     <Compile Include="Pages\PastebinPage\PastebinChromeDriver.cs" />
     <Compile Include="PastebinSeleniumPaste.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

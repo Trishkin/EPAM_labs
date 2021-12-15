@@ -10,78 +10,98 @@ using System.Threading.Tasks;
 
 namespace Tests.Pages.AlpariPage
 {
-    public class AlpariChromeDriver
+    public class AlpariChromeDriver: Page
     {
-        private IWebDriver driver;
-        private string homeURL;
-        WebDriverWait wait;
-
-        public AlpariChromeDriver(IWebDriver driver)
+        private string homeURL = "https://alpari.com/ru/";
+        private By logInBtnLocator = By.XPath("//a[@href='/ru/login/']");
+        private By emailLocator = By.XPath("//*[@id='authorization_login']");
+        private By passwordLocator = By.XPath("//*[@id='authorization_password']");
+        private By submitBtnLocator = By.XPath("//button[@type='submit']");
+        private By accountBtnLocator = By.XPath("//a[contains(text(), 'Открыть торговый счет')]");
+        private By demoBtnLocator = By.XPath("//input[@type='radio'][@value='demo']");
+        private By inputMoneyFieldLocator = By.XPath("//input[@type='text'][@value='0.00']");
+        private By openDemoBtnLocator = By.XPath("//button[@type='submit'][@name='send'][@tabindex='0']");
+        private By informationPasswordFieldLocator = By.XPath("//li[contains(text(), 'Пароль:')]");
+        private By metaTrader4BtnLocator = By.XPath("//div[contains(@class,'dropdown__control menu-line__text') and contains(text(), 'MetaTrader 4')]");
+        private By openTradeBtnLocator = By.XPath("//a[contains(@href,'/ru/platforms/webterminal_mt4/?version=4')]");
+        private By logInTradeBtnLocator = By.XPath("//*[@id='login']");
+        private By passwordTradeBtnLocator = By.XPath("//*[@id='password']");
+        private By okTradeBtnLocator = By.XPath("//button[contains(text(),'OK')]");
+        private By polygonLocator = By.XPath("//*[@id='1639587467718_svg']");
+        private By demoAccountsLocator = By.XPath("//a[contains(text(),'Учебные') and contains(@class, 'tabs__control ')]");
+        private By addMoneyLocator = By.XPath("//button[contains(@data-number, '14649788')]");
+        private By countAddMoneyLocator = By.XPath("//*[@id='balance']/input");
+        public AlpariChromeDriver(IWebDriver driver, double seconds): base(driver, seconds)
         {
-            this.driver = driver;
-            wait = new WebDriverWait(driver, System.TimeSpan.FromSeconds(15));
         }
 
         public void OpenPage()
         {
-            driver.Manage().Window.Maximize();
-            homeURL = "https://alpari.com/ru/";
-            driver.Navigate().GoToUrl(homeURL);
+            OnOpen();
+            OpenUrl(homeURL);
         }
 
-        public void Login()
+        public void Login(string login, string password)
         {
-            
-            wait.Until(driver =>
-driver.FindElement(By.XPath("//a[@href='/ru/login/']")));
-
-
-            driver.FindElement(By.XPath("//a[@href='/ru/login/']")).Click();
-            wait.Until(driver =>
-driver.FindElement(By.XPath("//*[@id='authorization_login']")));
-            IWebElement login = driver.FindElement(By.XPath("//*[@id='authorization_login']"));
-            login.Clear();
-            login.SendKeys("dima.dmitry.kulikov@gmail.com");
-
-            wait.Until(driver =>
-driver.FindElement(By.XPath("//*[@id='authorization_password']")));
-            IWebElement password = driver.FindElement(By.XPath("//*[@id='authorization_password']"));
-            password.Clear();
-            password.SendKeys("AY%S&iDd9b4c.sg");
-            driver.FindElement(By.XPath("//button[@type='submit']")).Click();
+            FindElementWithWait(logInBtnLocator).Click();
+            IWebElement Email = FindElementWithWait(emailLocator);
+            Email.Clear();
+            Email.SendKeys(login);
+            IWebElement Password = FindElementWithWait(passwordLocator);
+            Password.Clear();
+            Password.SendKeys(password);
+            FindElementWithWait(submitBtnLocator).Click();
         }
 
         public void OpenAccountPage()
         {
-            wait.Until(driver =>
-                driver.FindElement(By.XPath("/html/body/div[4]/div[1]/ul/li[2]")));
-            driver.FindElement(By.XPath("/html/body/div[4]/div[1]/ul/li[2]")).Click();
+            FindElementWithWait(accountBtnLocator).Click();
+
         }
 
         public void ChooseDemoAndInput100USD()
         {
-            wait.Until(driver =>
-                driver.FindElement(By.XPath("//input[@type='radio'][@value='demo']")));
-            driver.FindElement(By.XPath("//input[@type='radio'][@value='demo']")).Click();
-
-            wait.Until(driver =>
-            driver.FindElement(By.XPath("//input[@type='text'][@value='0.00']")));
-            driver.FindElement(By.XPath("//input[@type='text'][@value='0.00']")).SendKeys(Keys.ArrowLeft + Keys.ArrowLeft + Keys.ArrowLeft + "100");
-
-
-            driver.FindElement(By.XPath("//button[@type='submit'][@name='send'][@tabindex='0']")).Click();
+            FindElementWithWait(demoBtnLocator).Click();
+            FindElementWithWait(inputMoneyFieldLocator).SendKeys(Keys.Control + Keys.ArrowLeft);
+            FindElement(inputMoneyFieldLocator).SendKeys("100");
+            FindElementWithWait(openDemoBtnLocator).Click();
 
         }
 
         public IWebElement FindAccountInfo()
         {
-            wait.Until(driver =>
-                driver.FindElement(By.XPath("/html/body/div[4]/div[1]/div[2]/div[2]/div[2]/div[2]/div[1]/ul/li[1]")));
-
-            return driver.FindElement(By.XPath("/html/body/div[4]/div[1]/div[2]/div[2]/div[2]/div[2]/div[1]/ul/li[1]"));
+            return FindElementWithWait(informationPasswordFieldLocator);
         }
 
-        
+        public void OpenTradingPage()
+        {
+            FindElementWithWait(metaTrader4BtnLocator).Click();
+            FindElementWithWait(openTradeBtnLocator).Click();
+        }
+
+        public void ConnectToTradingAccount(string login, string password)
+        {
+            IWebElement Login = FindElementWithWait(logInTradeBtnLocator);
+            Login.Clear();
+            Login.SendKeys(login);
+            IWebElement Password = FindElementWithWait(passwordTradeBtnLocator);
+            Password.Clear();
+            Password.SendKeys(password);
+            FindElementWithWait(okTradeBtnLocator).Click();
+        }
+
+        public IWebElement FindTradingInfo()
+        {
+            return FindElementWithWait(polygonLocator);
+        }
+
+        public IWebElement Add100USDOnTradingAccounts()
+        {
+            FindElementWithWait(demoAccountsLocator).Click();
+            FindElementWithWait(addMoneyLocator).Click();
+            FindElementWithWait(countAddMoneyLocator).SendKeys("100"+Keys.Enter);
+            return FindElement(demoAccountsLocator);
+        }
     }
 
 
