@@ -23,16 +23,77 @@ namespace Tests.Pages
         private By buyBtnLocator = By.XPath("//div[3]/button[contains(text(),'Buy')]");
         
         private By OrderLocator = By.XPath("//div[contains(@class, 'trade-table toolbox-table') and not(contains(@style, 'none'))]//tr[2]");
+
+        private By typeBtnLocator = By.XPath("//*[@id='type']");
+        private By typeLongBtnLocator = By.XPath("//*[@id='type']/option[2]");
+        private By orderTypeBtnLocator = By.XPath("//*[@id='pend-type']");
+        private By orderTypeSellBtnLocator = By.XPath("//*[@id='pend-type']/option[2]");
+        private By priceInputLocator = By.XPath("//*[@id='pend-price']");
+        private By sellBtnLocator = By.XPath("//button[contains(text(),'Установить ордер')]");
+
+        private By successCreationLocator = By.XPath("//div[contains(text(), 'успешно')]");
+
+        private By closeOrderBtnLocator = By.XPath("//button[contains(@class, 'input-button yellow') and contains(text(),' AUDCAD ')]");
+
+        private By successCloseLocator = By.XPath("//div[contains(text(),' закрыт ')]");
+
+        private By changeTypeLocator = By.XPath("//*[@id='type']");
+        private By changeTypeBtnLocator = By.XPath("//*[@id='type']/option[3]");
+        private By intputChangeValueLocator = By.XPath("//*[@id='mod-tp']");
+        private By changeBtnLocator = By.XPath("//button[contains(text(),'Изменить ')]");
+
+        private By successChangeLocator = By.XPath("//div[contains(text(),'Неверные ')]");
+
+        private By lineBtnLocator = By.XPath("//a[contains(@title,'Линия')]");
+        private By autoBtnLocator = By.XPath("//a[contains(@title,'Автопрокрутка')]");
+        private By timeBtnLocator = By.XPath("//a[contains(@title,'5 Минут (M5)')]");
+        private By scaleBtnLocator = By.XPath("//a[contains(@title,'Увеличить')]");
+        private By fullScreenBtnLocator = By.XPath("//a[contains(@title,'Включить')]");
+
+        private By checkedTimeLocator = By.XPath("//a[contains(@title,'5 Минут (M5)') and contains(@class,' checked')]");
+
+        private By closeBtnLocator = By.XPath("//div[contains(@style, 'width: 770')]/div[2][contains(@class,'wx')]");
         public TradingPage(IWebDriver driver) : base(driver)
         {
         }
-        public TradingPage OpenPage()
+
+        public void ChangeGraph()
+        {
+            
+            FindElementWithWait(lineBtnLocator).Click();
+            FindElementWithWait(autoBtnLocator).Click();
+            FindElementWithWait(timeBtnLocator).Click();
+        }
+
+        public IWebElement FindChangedGraph()
+        {
+            return FindElementWithWait(checkedTimeLocator);
+        }
+        public void ChangeOrder()
+        {
+            Actions act = new Actions(driver);
+
+            IWebElement Order = FindElementWithWait(OrderLocator);
+            Order.Click();
+            act.DoubleClick(Order).Perform();
+            FindElementWithWait(changeTypeLocator).Click();
+            FindElementWithWait(changeTypeBtnLocator).Click();
+            FindElementWithWait(intputChangeValueLocator).Click();
+            FindElement(intputChangeValueLocator).SendKeys("999999999");
+            FindElementWithWait(changeTypeLocator).Click();
+            FindElementWithWait(changeBtnLocator).Click();
+        }
+        public IWebElement FindChangedOrder()
+        {
+            return FindElementWithWait(successChangeLocator);
+        }
+            public TradingPage OpenPage()
         {
             OnOpen();
             OpenUrl(homeURL);
             return this;
         }
-        public TradingPage ConnectToTradingAccount(User account)
+        public TradingPage ConnectToTradingAccount(Account account)
         {
             IWebElement Login = FindElementWithWait(logInTradeBtnLocator);
             Login.Clear();
@@ -52,6 +113,8 @@ namespace Tests.Pages
         public void CreateBuyOrder()
         {
             FindElementWithWait(createOrderBtnLocator).Click();
+            FindElementWithWait(closeBtnLocator).Click();
+            FindElementWithWait(createOrderBtnLocator).Click();
             FindElementWithWait(buyBtnLocator).Click();
         }
 
@@ -63,6 +126,44 @@ namespace Tests.Pages
         public IWebElement FindTradingInfo()
         {
             return FindElementWithWait(polygonLocator);
+        }
+
+        public void CreateLongSellOrder()
+        {
+            FindElementWithWait(createOrderBtnLocator).Click();
+            FindElementWithWait(typeBtnLocator).Click();
+            FindElementWithWait(typeLongBtnLocator).Click();
+            FindElementWithWait(orderTypeBtnLocator).Click();
+            FindElementWithWait(orderTypeSellBtnLocator).Click();
+            FindElementWithWait(priceInputLocator).Click();
+            FindElementWithWait(priceInputLocator).SendKeys("1");
+            FindElementWithWait(sellBtnLocator).Click();
+        }
+
+        public IWebElement FindLongOrder()
+        {
+            return FindElementWithWait(successCreationLocator);
+        }
+
+        public void CloseOrder()
+        {
+            Actions act = new Actions(driver);
+
+           IWebElement Order = FindElementWithWait(OrderLocator);
+            Order.Click();
+           act.DoubleClick(Order).Perform();
+           FindElementWithWait(closeOrderBtnLocator).Click();
+        }
+
+        public IWebElement FindDeletedOrder()
+        { 
+        return FindElementWithWait(successCloseLocator);
+        }
+
+        public void ScaleGraph()
+        {
+            FindElementWithWait(scaleBtnLocator).Click();
+            FindElementWithWait(fullScreenBtnLocator).Click();
         }
     }
 }

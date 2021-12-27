@@ -52,6 +52,41 @@ namespace Tests
             Assert.NotNull(steps.FindCreatedOrder());
         }
 
+        [Test]
+        public void CreateLongSellOrder()
+        {
+            steps.CreateLongOrder();
+            Assert.NotNull(steps.FindCreatedLongOrder());
+        }
+
+
+        [Test]
+        public void DeleteBuyOrder()
+        {
+            steps.DeleteOrder();
+            Assert.NotNull(steps.FindDeletedOrder());
+        }
+        [Test]
+        public void ChangeBuyOrder()
+        {
+            steps.ChangeOrder();
+            Assert.NotNull(steps.FindChangedOrder());
+        }
+
+        [Test]
+        public void ChangeGraph()
+        {
+            steps.ChangeGraph();
+            Assert.NotNull(steps.FindChangedGraph());
+        }
+
+        [Test]
+        public void ChangeSizeGraph()
+        {
+            steps.ChangeSizeGraph();
+            Assert.NotNull(steps.FindTradInfo());
+        }
+
         [TearDown]
         public void TearDownTest()
         {

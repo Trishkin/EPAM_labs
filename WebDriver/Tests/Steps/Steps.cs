@@ -23,7 +23,7 @@ namespace Tests.Steps
         public void CloseBrowser()
         {
             TestLog.LogStat(TestContext.CurrentContext);
-            //Driver.DriverInstance.CloseBrowser();
+            Driver.DriverInstance.CloseBrowser();
         }
 
         public void LoginAlpari()
@@ -45,7 +45,7 @@ namespace Tests.Steps
         public void StartTrading()
         {
             Pages.TradingPage tradingPage = new Pages.TradingPage(driver);
-            User testAccount = AccountCreator.CreateAccount();
+            Account testAccount = AccountCreator.CreateAccount();
             tradingPage.OpenPage()
                 .ConnectToTradingAccount(testAccount);
         }
@@ -89,7 +89,7 @@ namespace Tests.Steps
         public void CreateOrder()
         {
             Pages.TradingPage tradingPage = new Pages.TradingPage(driver);
-            User testAccount = AccountCreator.CreateAccount();
+            Account testAccount = AccountCreator.CreateAccount();
             tradingPage.OpenPage()
                 .ConnectToTradingAccount(testAccount)
                 .CreateBuyOrder();
@@ -98,6 +98,75 @@ namespace Tests.Steps
         {
             Pages.TradingPage tradingPage = new Pages.TradingPage(driver);
             return tradingPage.FindOrder();
+        }
+
+        public void CreateLongOrder()
+        {
+            Pages.TradingPage tradingPage = new Pages.TradingPage(driver);
+            Account testAccount = AccountCreator.CreateAccount();
+            tradingPage.OpenPage()
+                .ConnectToTradingAccount(testAccount)
+                .CreateLongSellOrder();
+        }
+
+        public IWebElement FindCreatedLongOrder()
+        {
+            Pages.TradingPage tradingPage = new Pages.TradingPage(driver);
+            return tradingPage.FindLongOrder();
+        }
+
+        public void DeleteOrder()
+        {
+            Pages.TradingPage tradingPage = new Pages.TradingPage(driver);
+            Account testAccount = AccountCreator.CreateAccount();
+            tradingPage.OpenPage()
+                .ConnectToTradingAccount(testAccount)
+                .CloseOrder();
+        }
+
+        public IWebElement FindDeletedOrder()
+        {
+            Pages.TradingPage tradingPage = new Pages.TradingPage(driver);
+            return tradingPage.FindDeletedOrder();
+        }
+
+        public void ChangeOrder()
+        {
+            Pages.TradingPage tradingPage = new Pages.TradingPage(driver);
+            Account testAccount = AccountCreator.CreateAccount();
+            tradingPage.OpenPage()
+                .ConnectToTradingAccount(testAccount)
+                .ChangeOrder();
+        }
+
+        public IWebElement FindChangedOrder()
+        {
+            Pages.TradingPage tradingPage = new Pages.TradingPage(driver);
+            return tradingPage.FindChangedOrder();
+        }
+
+        public void ChangeGraph()
+        {
+            Pages.TradingPage tradingPage = new Pages.TradingPage(driver);
+            Account testAccount = AccountCreator.CreateAccount();
+            tradingPage.OpenPage()
+                .ConnectToTradingAccount(testAccount)
+                .ChangeGraph();
+        }
+
+        public IWebElement FindChangedGraph()
+        {
+            Pages.TradingPage tradingPage = new Pages.TradingPage(driver);
+            return tradingPage.FindChangedGraph();
+        }
+
+        public void ChangeSizeGraph()
+        {
+            Pages.TradingPage tradingPage = new Pages.TradingPage(driver);
+            Account testAccount = AccountCreator.CreateAccount();
+            tradingPage.OpenPage()
+                .ConnectToTradingAccount(testAccount)
+                .ScaleGraph();
         }
     }
 }

@@ -12,9 +12,9 @@ namespace Tests.Service
         public static string loginAccount = "14649788";
         public static string passwordAccount = "i4uLxpj";
 
-        public static User CreateAccount()
+        public static Account CreateAccount()
         {
-            return new User(loginAccount, passwordAccount);
+            return new Account(loginAccount, passwordAccount);
         }
     }
 }
