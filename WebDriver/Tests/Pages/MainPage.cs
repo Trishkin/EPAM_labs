@@ -16,11 +16,11 @@ namespace Tests.Pages
         private By openTradeBtnLocator = By.XPath("//a[contains(@href,'/ru/platforms/webterminal_mt4/?version=4')]");
         private By demoAccountsLocator = By.XPath("//a[contains(text(),'Учебные') and contains(@class, 'tabs__control ')]");
         private By addMoneyLocator = By.XPath("//button[contains(@data-number, '14651579')]");
-        private By countAddMoneyLocator = By.XPath("//*[@id='balance']/input");
+        private By countAddMoneyLocator = By.XPath("//*[@id='balance' and contains(@class, 'input_focus_yes')]/input");
         private By countMoneyLocator = By.XPath("//*[contains(@data-account-key, '14651579-mt4')]/*/*/span[contains(@class, 'js-balance-value')]");
         private By firstDemoAccountLocator = By.XPath("//*[contains(@class, 'js-account-row')][1]//span[contains(@class,'dropdown__text')]");
         private By deleteAccountLocator = By.XPath("//*[contains(@class, 'js-account-row')][1]//div[contains(@class,'option__text')]");
-        private By deletebtnLocator = By.XPath("//*[contains(@class, 'js-form-el-holder js-form-el__input button button_type_primary js-form-el-field s_mb_18 focus field_active')]");
+        private By deletebtnLocator = By.XPath("//*[contains(@class, 's_mb_18 focus field_active')]");
         public MainPage(IWebDriver driver) : base(driver)
         {
         }
@@ -32,7 +32,7 @@ namespace Tests.Pages
             
             FindElementWithWait(demoAccountsLocator).Click();
             money = FindElementWithWait(countMoneyLocator).Text;
-            FindElementWithWait(addMoneyLocator);
+            FindElementWithWait(addMoneyLocator).Click();
             FindElementWithWait(countAddMoneyLocator).SendKeys("100" + Keys.Enter);
 
             return FindElement(demoAccountsLocator);
