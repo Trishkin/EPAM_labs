@@ -7,71 +7,62 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tests.Pages.AlpariPage;
+using Tests.Pages;
+using Tests.Service;
+using Tests.Models;
 
 namespace Tests
 {
     [TestFixture]
     public class Alpari
     {
-        private IWebDriver driver;
-        private string login= "dima.dmitry.kulikov@gmail.com";
-        private string password = "AY%S&iDd9b4c.sg";
-        private string loginAccount = "14649788";
-        private string passwordAccount = "i4uLxpj";
+        private Steps.Steps steps = new Steps.Steps();
 
         [Test]
         public void CreateDemoAccount()
         {
-
-            AlpariChromeDriver chromeDriver = new AlpariChromeDriver(driver,15);
-
-            chromeDriver.OpenPage();
-            chromeDriver.Login(login, password);
-            chromeDriver.OpenAccountPage();
-            chromeDriver.ChooseDemoAndInput100USD();
-            Assert.IsNotNull(chromeDriver.FindAccountInfo());
+            steps.LoginAlpari();
+            Assert.IsNotNull(steps.CreatedAccount());
         }
-        //[Test]
-        //public void BeginTrading()
-        //{
-
-        //    AlpariChromeDriver chromeDriver = new AlpariChromeDriver(driver, 600);
-
-        //    chromeDriver.OpenPage();
-        //    chromeDriver.Login(login, password);
-        //    chromeDriver.OpenAccountPage();
-        //    chromeDriver.OpenTradingPage();
-        //    chromeDriver.ConnectToTradingAccount(loginAccount, passwordAccount);
-        //    Assert.IsNotNull(chromeDriver.FindTradingInfo());
-        //}
+        [Test]
+        public void BeginTrading()
+        {
+            steps.StartTrading();
+            Assert.IsNotNull(steps.FindTradInfo());
+        }
         [Test]
         public void AddMoneyOnDemoAccount()
         {
 
-            AlpariChromeDriver chromeDriver = new AlpariChromeDriver(driver, 15);
-            chromeDriver.OpenPage();
-            chromeDriver.Login(login, password);
-            Assert.IsNotNull(chromeDriver.Add100USDOnTradingAccounts());
+            steps.AddMoneyOnAccount();
+            Assert.IsFalse(steps.FindMoneyInfo());
         }
 
+        [Test]
+        public void DeleteDemoAccount()
+        {
+            steps.DeleteTradingAccount();
+            Assert.IsFalse(steps.FindDeletedAccount());
+        }
+
+        [Test]
+        public void CreateBuyOrder()
+        {
+            steps.CreateOrder();
+            Assert.NotNull(steps.FindCreatedOrder());
+        }
 
         [TearDown]
         public void TearDownTest()
         {
-            driver.Quit();
+            steps.CloseBrowser();
         }
 
 
         [SetUp]
         public void SetupTest()
         {
-            ChromeOptions options = new ChromeOptions();
-
-            //options.AddArguments("load-extension=C:\\Users\\Asus\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\gighmmpiobklfepjocnamgkkbiglidom\\4.41.0_0");
-            //options.AddArgument("user-data-dir=C:\\Users\\Asus\\AppData\\Local\\Google\\Chrome\\User Data");
-            options.AddArgument("--enable-javascript");
-            driver = new ChromeDriver(options);
+            steps.InitBrowser();
         }
 
     }

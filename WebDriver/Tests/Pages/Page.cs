@@ -7,19 +7,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tests.Pages.CalculatorPage;
 
 namespace Tests.Pages
 {
     public class Page
     {
-        private IWebDriver driver;
-        private WebDriverWait wait;
+        public IWebDriver driver;
+        public WebDriverWait wait;
 
-        public Page(IWebDriver driver, double seconds)
+        public Page(IWebDriver driver)
         {
             this.driver = driver;
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(seconds));
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
         }
 
         public IWebElement FindElement(By locator)

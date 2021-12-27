@@ -7,8 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tests.Models;
 
-namespace Tests.Pages.AlpariPage
+namespace Tests.Pages
 {
     public class AlpariChromeDriver: Page
     {
@@ -29,9 +30,9 @@ namespace Tests.Pages.AlpariPage
         private By okTradeBtnLocator = By.XPath("//button[contains(text(),'OK')]");
         private By polygonLocator = By.XPath("//*[@id='1639587467718_svg']");
         private By demoAccountsLocator = By.XPath("//a[contains(text(),'Учебные') and contains(@class, 'tabs__control ')]");
-        private By addMoneyLocator = By.XPath("//button[contains(@data-number, '14649788')]");
+        private By addMoneyLocator = By.XPath("//button[contains(@data-number, '14651579')]");
         private By countAddMoneyLocator = By.XPath("//*[@id='balance']/input");
-        public AlpariChromeDriver(IWebDriver driver, double seconds): base(driver, seconds)
+        public AlpariChromeDriver(IWebDriver driver): base(driver)
         {
         }
 
@@ -41,15 +42,15 @@ namespace Tests.Pages.AlpariPage
             OpenUrl(homeURL);
         }
 
-        public void Login(string login, string password)
+        public void Login(User user)
         {
             FindElementWithWait(logInBtnLocator).Click();
             IWebElement Email = FindElementWithWait(emailLocator);
             Email.Clear();
-            Email.SendKeys(login);
+            Email.SendKeys(user.getLogin());
             IWebElement Password = FindElementWithWait(passwordLocator);
             Password.Clear();
-            Password.SendKeys(password);
+            Password.SendKeys(user.getPassword());
             FindElementWithWait(submitBtnLocator).Click();
         }
 
@@ -79,14 +80,14 @@ namespace Tests.Pages.AlpariPage
             FindElementWithWait(openTradeBtnLocator).Click();
         }
 
-        public void ConnectToTradingAccount(string login, string password)
+        public void ConnectToTradingAccount(User account)
         {
             IWebElement Login = FindElementWithWait(logInTradeBtnLocator);
             Login.Clear();
-            Login.SendKeys(login);
+            Login.SendKeys(account.getLogin());
             IWebElement Password = FindElementWithWait(passwordTradeBtnLocator);
             Password.Clear();
-            Password.SendKeys(password);
+            Password.SendKeys(account.getPassword());
             FindElementWithWait(okTradeBtnLocator).Click();
         }
 

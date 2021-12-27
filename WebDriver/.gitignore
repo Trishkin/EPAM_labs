@@ -2,6 +2,10 @@
 /build
 /.vs
 /packages
+/Screenshots
+/XmlResultTests
+/Chrome
+/Firefox
 //ConsoleApp1/vs
 /ConsoleApp1/obj
 /ConsoleApp1/bin
